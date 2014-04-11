@@ -6,48 +6,104 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Linkify</title>
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/flatly/bootstrap.min.css" rel="stylesheet">
 
     <style type="text/css">
+    body {
+        padding-top: 70px;
+    }
     #e {
         font-size: 14px;
-        /*      position: absolute;*/
-        /*      top: 0;*/
-        /*      right: 0;
-      bottom: 0;*/
-        /*      left: 0;*/
-        position: relative;
-        width: 400px;
         height: 800px;
-        float: left;
-        outline: 2px solid blue;
     }
-    #r {
-        outline: 2px solid red;
-        width: 400px;
-        height: 800px;
-        position: relative;
-        float: left;
+
+    .list-group-item {
+        text-overflow: ellipsis;
+        overflow:hidden;
+        white-space: nowrap;
+    }
+
+    .bs-docs-footer {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        margin-top: 100px;
+        color: #777;
+        text-align: center;
+        border-top: 1px solid #e5e5e5;
     }
     </style>
-    <script src="http://s1.daumcdn.net/svc/original/U03/cssjs/jquery/jquery-1.11.0.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <!--[if lt IE 9]>
-      <h1>IE9 이하에서는 사용할 수 없습니다.</h1>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Linkfy</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="#about" id="about" data-toggle="modal" data-target="#myModal">About</a></li>
+                <li><a href="https://chrome.google.com/webstore/detail/linkclump/lfpjkncokllnfokkgpkobnkbkmelfefj" target="_blank">크롬확장 설치</a>
+                </li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</div>
+
+
+<div class="container">
+  <!--[if lte IE 10]>
+  <div class="well">
+    IE10 미만에서는 사용할 수 없습니다.
+  </div>
   <![endif]-->
-    <div id="e">
-        <textarea style="width:100%; height:100%;background-color:yellow;" id="rawLinks" name="raw_links" placeholder="Paste here"></textarea>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">사용법</h4>
+        </div>
+        <div class="modal-body">
+          <ol>
+            <li>Linkclump 크롬 확장을 먼저 설치합니다.</li>
+            <li>링크 목록을 아래 입력창에 입력합니다.</li>
+            <li>[링크만들기]를 클릭합니다. </li>
+            <li>마우스 오른쪽 버튼을 누른채 생성된 링크 목록위로 박스영역을 그리면, 그 안에 있는 링크 목록이 탭으로 열립니다.</li>
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
-    <div id="r">
-        <button id="makeLink">링크 만들기</button>
-        <!--     <button id="openTab">탭 열기</button> -->
-        <ul id="links">
+  </div>
+
+    <div class="row">
+        <div id="e" class="col-md-6">
+            <textarea style="width:100%; height:100%;" id="rawLinks" name="raw_links" placeholder="Paste here" class="form-control" autofocus></textarea>
+        </div>
+        <div id="r" class="col-md-6">
+            <button id="makeLink" class="btn btn-primary">링크 만들기</button>
+            <!--     <button id="openTab">탭 열기</button> -->
+            <ul id="links" class="list-group" style="padding-top: 2em;">
+        </div>
     </div>
+</div>
+<!-- /.container -->
+
+<footer class="bs-docs-footer" role="contentinfo">
+    <p>문의: 운영플랫폼개발팀 채희상 theand@daumcorp.com</p>
     </div>
+</footer>
+
+<script src="http://s1.daumcdn.net/svc/original/U03/cssjs/jquery/jquery-1.11.0.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </body>
 
 <script type="text/javascript" charset="utf-8">
@@ -61,12 +117,12 @@ $(document).ready(function() {
             if (!el)
                 return;
 
-            $('<li />').append(
-                $('<a>', {
-                    text: el,
-                    title: el,
-                    href: el
-                })
+            $('<li />', {
+                class: 'list-group-item'
+            }).append(
+                $('<a>', { title: el, href: el }).append(
+                  $('<span />', { text: el, class: 'link_text'})
+                )
             ).appendTo('#links');
 
         });
