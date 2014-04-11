@@ -120,25 +120,12 @@ $(document).ready(function() {
             $('<li />', {
                 class: 'list-group-item'
             }).append(
-                $('<a>', { title: el, href: el }).append(
-                  $('<span />', { text: el, class: 'link_text'})
-                )
+                $('<a>', { text: el, title: el, href: el })
             ).appendTo('#links');
 
         });
     });
 
-    $('#openTab').click(function() {
-        var links = $('#links li a');
-        // console.log(links);
-        links.each(function(index) {
-            var a = $(this)[0];
-            console.log(a.href);
-            if (!a.href)
-                return;
-            window.open(a.href);
-        });
-    });
 });
 </script>
 
