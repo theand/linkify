@@ -55,9 +55,9 @@
 
 
 <div class="container" ng-controller="AppController">
-  <!--[if lte IE 9]>
+  <!--[if IE ]>
   <div class="well">
-    IE10 미만에서는 사용할 수 없습니다.
+    IE에서는 사용할 수 없습니다.
   </div>
   <![endif]-->
 
@@ -70,6 +70,7 @@
           <h4 class="modal-title" id="myModalLabel">사용법</h4>
         </div>
         <div class="modal-body">
+          대량의 링크 텍스트 주소를 붙여넣고, 크롬확장을 이용해 한번에 탭으로 열 수 있도록 링크 목록을 만들어주는 툴입니다.
           <ol>
             <li>Linkclump 크롬 확장을 먼저 설치합니다.</li>
             <li>링크 목록을 아래 입력창에 입력하면 오른쪽 영역에 링크 목록이 생성됩니다.</li>
@@ -101,28 +102,23 @@
     <p>문의: 운영플랫폼개발팀 채희상 theand@daumcorp.com</p>
 </footer>
 
-<script src="http://s1.daumcdn.net/svc/original/U03/cssjs/jquery/jquery-1.11.0.min.js"></script>
+<script src="http://s1.daumcdn.net/svc/original/U03/cssjs/jquery/jquery-2.1.0.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
 </body>
 
 <script>
 "use strict";
-
 /* Global Module */
 var App = angular.module('app', [] );
-
 App.controller('AppController', ['$scope',
     function ($scope) {
-
         $scope.linkList = [];
-
         $scope.$watch('linkInput', function(){
             $scope.linkList = $scope.linkInput.trim().split(/\s+/);
         });
     }
 ]);
-
 </script>
 
 </html>
