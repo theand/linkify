@@ -116,7 +116,7 @@ App.controller('AppController', ['$scope',
         $scope.linkList = [];
         $scope.$watch('linkInput', function(){
             if( !$scope.linkInput ){
-                $scope.linkList = []];
+                $scope.linkList = [];
                 return;
             }
             $scope.linkList = $scope.linkInput.trim().split(/\s+/);
